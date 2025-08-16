@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Checkout Seguro - Google Ferramenta</title>
+  <!-- Meta Pixel Code -->
+<script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '2222285871540206'); // <-- Seu Pixel ID
+  fbq('track', 'PageView');
+</script>
+<noscript>
+  <img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=4179716432354886&ev=PageView&noscript=1"/>
+</noscript>
+<!-- End Meta Pixel Code -->
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
+
+    .header-timer {
+      background-color: #d40000;
+      color: white;
+      text-align: center;
+      font-weight: bold;
+      padding: 10px;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 30px auto;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      padding: 20px;
+    }
+
+    .secure {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .country {
+      text-align: right;
+      font-size: 14px;
+      margin-top: -20px;
+      margin-bottom: 10px;
+    }
+
+    .logo {
+      text-align: center;
+    }
+
+    .logo img {
+      width: 60px;
+    }
+
+    .title {
+      text-align: center;
+      font-weight: bold;
+      margin-top: 10px;
+      font-size: 18px;
+    }
+
+    .price {
+      text-align: center;
+      color: #0077cc;
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="email"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    .payment-methods {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+
+    .payment-methods button {
+      flex: 1;
+      padding: 10px;
+      margin-right: 10px;
+      border: 2px solid #ccc;
+      background-color: white;
+      cursor: pointer;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+
+    .payment-methods button:last-child {
+      margin-right: 0;
+    }
+
+    .payment-methods .active {
+      border-color: #d40000;
+      background-color: #ffd6d6;
+    }
+
+    .details {
+      margin-top: 20px;
+    }
+
+    .buy-btn {
+      margin-top: 20px;
+      background-color: #28a745;
+      color: white;
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .buy-btn:hover {
+      background-color: #218838;
+    }
+
+    #popup {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+    }
+
+    #popup .modal {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      max-width: 300px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header-timer">
+    Oferta expira em 00:09:56
+  </div>
+
+  <div class="container">
+    <div class="secure">
+      <span>✅ COMPRA 100% SEGURA</span>
+    </div>
+
+    <div class="country">🇲🇿 Moçambique</div>
+
+    <div class="logo">
+      <img src="https://media.wired.com/photos/5926ffe47034dc5f91bed4e8/3:2/w_2560%2Cc_limit/google-logo.jpg" alt="Logo do Produto">
+    </div>
+
+    <div class="title">GOOGLE FERRAMENTA</div>
+    <div class="price">300,00 MT</div>
+
+    <form id="formPagamento">
+      <label for="nome">Nome completo</label>
+      <input type="text" id="nome" name="nome" placeholder="Seu nome" required  />
+
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" placeholder="seu@email.com" required />
+
+      <label>Método de pagamento</label>
+      <div class="payment-methods">
+        <button type="button" data-metodo="mpesa" class="active">📱 M-Pesa</button>
+        <button type="button" data-metodo="emola">📲 e-Mola</button>
+      </div>
+
+      <label for="numero">Número de pagamento</label>
+      <input type="text" id="numero" name="telefone" placeholder="8xxxxxxxx" required minlength="9" maxlength="9" />
+
+      <div class="details">
+        <p><strong>Detalhes da compra</strong></p>
+        <p>GOOGLE FERRAMENTA</p>
+        <p><strong>Total:</strong> 300,00 MT</p>
+      </div>
+
+      <button type="submit" class="buy-btn">Comprar agora</button>
+    </form>
+  </div>
+
+  <div id="popup">
+    <div class="modal">
+      <h3>🔐 Aguarde...</h3>
+      <p>Você receberá um pedido no seu telemóvel.</p>
+      <p>Digite o PIN e aguarde a confirmação.</p>
+      <p id="contador">Fechando em 180s...</p>
+    </div>
+  </div>
+
+ <script>
+  const metodoBtns = document.querySelectorAll(".payment-methods button");
+  let metodoSelecionado = "mpesa";
+  let wallet_id = ""
+  let number_waht = "258824342006"
+  let push_cut ="https://api.pushcut.io/QsggCCih4K4SGeZy3F37z/notifications/MinhaNotifica%C3%A7%C3%A3o"
+  let acess_token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5ZmE0YTQzMy04MzA0LTQ3MmYtYTBhMS05N2RkM2FjNGQ4MWMiLCJqdGkiOiJmMTA1MzFmNWY0OTM0NjRkMjk5ZjQ2MGZlMjMxN2YyZmZmZTlkZWE1MmQ0ODFmZjQ3ZDg4YTkyYzUyMDZjNTNlNDAxYjAyOWViMTljMTBjZSIsImlhdCI6MTc1NTMzNDY4Mi45NDIwOTksIm5iZiI6MTc1NTMzNDY4Mi45NDIxMDIsImV4cCI6MTc4Njg3MDY4Mi45Mzc4NDcsInN1YiI6IiIsInNjb3BlcyI6W119.Oahsv1X5E0DofXzTse4_-PPI6fDBYEmyAXYFVNWi3L2V4RNJsdj_WBouLfwlsdmVLywcVEcrUUuVReXhTbY8Ea79mNfw8XJLzMvzVhVRas2S6jJLAa5ZQxyJc8_0zsVwdUTyjwbUcIdjw6q4ukUZTCp10vyOjrhaCNTdQ77loCLdzBSBDBodN_epWIoSFOyyYM1-bhBw7NhnPjdS8S6ZmsEZt_tDnemPMfdHgWL2oPwr4Pq58A6pRm_H1mcxVur6zJzKTkcTvVdXtuv3PORzxX7fXPGS6CwCcz1IgYiRt-3AD_AkEGX4ouC7qrjlZmw3UTzwCEZQCBD_1CBFd-zEXzEPaOGsHcsqF8Ci6Wyk-gXtrDYIHHTQGiZ8YSYu_eYY0YKntMM8VpfQ7MmhW-3BOLCZaLFBTVOPvJIIDSIw7AoVpTRVL-7_4xYm6h3UYHeXSjyx17lqLYU964Voe7bO8UNP-kqtEfwkna5gAekonDa3LXBkxOsQVb8P2wJ0CXUuCtw2Qkub_87BlKRFbv-t40ZBREXxi9GYyQ4Zmcgp9gLSSTRLA7W0wYmCTmW9kkfhvvAeSyB4lX4xH5y555RFdjhps_JEanxoW8axlecWJhuU4jQy2ihj-PIvlezOgWEOcpaSObDsPHdxucrJosNndNQh2NTGF73kebAdYCn7Da8"
+
+  metodoBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      metodoBtns.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      metodoSelecionado = btn.dataset.metodo;
+    });
+  });
+
+  fbq('track','InitiateCheckout')
+
+
+  document.getElementById("formPagamento").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const nome = document.getElementById("nome").value;
+    const email = document.getElementById("email").value;
+    const telefone = document.getElementById("numero").value;
+
+    if (!nome || !email || !telefone || !metodoSelecionado) {
+        throw new Error('Dados incompletos')
+    }
+
+    if (!/^(84|85|86|87)\d{7}$/.test(telefone)) {
+        throw new Error('Numero de telefone invalido')
+    }
+
+    const popup = document.getElementById("popup");
+    popup.style.display = "flex";
+
+    let tempo = 180;
+    const interval = setInterval(() => {
+      document.getElementById("contador").innerText = `Fechando em ${tempo--}s...`;
+      if (tempo < 0) clearInterval(interval);
+    }, 1000);
+
+
+    if(metodoSelecionado === 'mpesa'){
+      wallet_id = "993723"
+    } else if(metodoSelecionado === 'emola'){
+      wallet_id = "993724"
+    }
+
+    try {
+      // Envia dados para rota /pagar
+      const resposta = await fetch(`https://e2payments.explicador.co.mz/v1/c2b/${metodoSelecionado}-payment/${wallet_id}`,{
+        method: "POST",
+        headers: {
+           "Authorization": `Bearer ${acess_token}`,
+           "Accept": "application/json",
+           "Content-Type": "application/json"
+          },
+
+        body: JSON.stringify({
+            "client_id": "9fa4a433-8304-472f-a0a1-97dd3ac4d81c",
+            "amount": "300",// no intervalo de 1 a 1250000
+            "phone": telefone,//9 digitos  
+            "reference": "PrimeiroPagamento"
+        })
+      }).then(async(response)=>{
+      if(response.status === 200){
+        try{
+      //  await fetch(push_cut,{method:'POST',body:JSON.stringify({text:`${nome} pagou 300 MZN por ${metodoSelecionado}`,title:'Nova venda aprovada'})})   
+        }catch(error){}
+        let mensagem = `Comprei o produto Google Ferramenta e quero o receber, meu nome é ${nome}, paguei usando o emola pelo numero: ${telefone}`;
+        let link = `https://wa.me/${number_waht}?text=` + encodeURIComponent(mensagem);
+
+      fbq('track', 'Purchase', {
+        value: 300.00,
+        currency: 'MZN',
+        content_name: 'Método Premise',
+        content_category: metodoSelecionado
+      });
+        window.location.href = link
+        return      
+        } else {
+        throw new Error("Pagamento não foi processado");
+        setTimeout(()=>{
+          window.location.reload()
+        },2000)
+        return          
+        }
+      }).catch(()=>{
+        throw new Error("Pagamento não foi processado");
+        setTimeout(()=>{
+          window.location.reload()
+        },2000)
+      });
+    } catch(error){
+      //'
+      throw new Error("Pagamento não foi processado");
+      setTimeout(()=>{
+          window.location.reload()
+      },2000)
+    }
+  });
+</script>
+
+</body>
+</html>. 
